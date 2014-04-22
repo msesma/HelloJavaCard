@@ -1,0 +1,7 @@
+*.svn
+*~
+*/bin/*
+*/gen/*
+core/local.properties
+core/tmp-common/*
+*/tmp/*

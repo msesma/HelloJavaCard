@@ -1,0 +1,298 @@
+// converted by version 1.3
+// on Tue Apr 22 14:30:49 CEST 2014
+
+.package eu/sesma/hellojc {
+	.aid 0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.3;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0:0x0 HelloJc;
+	}
+
+	.constantPool {
+		// 0
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 1
+		classRef HelloJc;
+		// 2
+		staticMethodRef HelloJc/<init>()V;
+		// 3
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 4
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 5
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 6
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 7
+		staticMethodRef HelloJc/getHelloWorld(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 8
+		staticFieldRef byte[] HelloJc/INPUT;
+		// 9
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 10
+		virtualMethodRef HelloJc/contains([B[B)S;
+		// 11
+		staticFieldRef byte[] HelloJc/OUTPUT;
+		// 12
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 13
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 14
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 15
+		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
+		// 16
+		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
+	}
+
+	.class public HelloJc 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private static final byte[] INPUT = {72,101,108,108,111};		// [B
+			private static final byte[] OUTPUT = {71,111,111,100,98,121,101};		// [B
+			private static final byte CLA = 0;		// B
+			private static final byte CLA_MASK = -4;		// B
+			private static final byte HELLO_INS = -69;		// B
+		}
+
+		.publicMethodTable 4 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+			contains([B[B)S;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 0;		// javacard/framework/Applet.<init>()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 1;		// eu/sesma/hellojc/HelloJc
+					dup;
+					invokespecial 2;		// eu/sesma/hellojc/HelloJc.<init>()V
+					invokevirtual 3;		// register()V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 4;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 5;		// getBuffer()[B
+					astore_2;
+					aload_2;
+					sconst_0;
+					baload;
+					bspush -4;
+					sand;
+					ifeq L4;
+				L3:	sspush 28160;
+					invokestatic 6;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_2;
+					sconst_1;
+					baload;
+					sstore_3;
+					sload_3;
+					stableswitch L6 -69 -69 L5;
+				L5:	aload_0;
+					aload_1;
+					invokespecial 7;		// eu/sesma/hellojc/HelloJc.getHelloWorld(Ljavacard/framework/APDU;)V
+					goto L7;
+				L6:	sspush 27904;
+					invokestatic 6;		// javacard/framework/ISOException.throwIt(S)V
+				L7:	return;
+		}
+
+		.method private getHelloWorld(Ljavacard/framework/APDU;)V {
+			.stack 5;
+			.locals 5;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 5;		// getBuffer()[B
+					astore_2;
+					aload_2;
+					sconst_4;
+					baload;
+					sspush 255;
+					sand;
+					sstore_3;
+					sload_3;
+					getstatic_a 8;		// reference eu/sesma/hellojc/HelloJc.INPUT
+					arraylength;
+					if_scmpge L2;
+				L1:	sspush 26368;
+					invokestatic 6;		// javacard/framework/ISOException.throwIt(S)V
+				L2:	aload_1;
+					invokevirtual 9;		// setIncomingAndReceive()S
+					sstore 4;
+					goto L4;
+				L3:	sload_3;
+					sload 4;
+					ssub;
+					sstore_3;
+					aload_1;
+					sconst_5;
+					invokevirtual 16;		// receiveBytes(S)S
+					sstore 4;
+				L4:	sload_3;
+					ifgt L3;
+				L5:	aload_0;
+					aload_2;
+					getstatic_a 8;		// reference eu/sesma/hellojc/HelloJc.INPUT
+					invokevirtual 10;		// contains([B[B)S
+					sconst_5;
+					if_scmpne L10;
+				L6:	getstatic_a 11;		// reference eu/sesma/hellojc/HelloJc.OUTPUT
+					arraylength;
+					sstore 5;
+					aload_1;
+					invokevirtual 12;		// setOutgoing()S
+					sstore 6;
+					aload_2;
+					sconst_4;
+					aload_2;
+					sconst_4;
+					baload;
+					sadd;
+					sconst_1;
+					sadd;
+					baload;
+					sstore 6;
+					sload 6;
+					ifeq L9;
+				L7:	sload 6;
+					sload 5;
+					if_scmpge L9;
+				L8:	sspush 26368;
+					invokestatic 6;		// javacard/framework/ISOException.throwIt(S)V
+				L9:	aload_1;
+					sload 5;
+					s2b;
+					invokevirtual 13;		// setOutgoingLength(S)V
+					getstatic_a 11;		// reference eu/sesma/hellojc/HelloJc.OUTPUT
+					sconst_0;
+					aload_2;
+					sconst_0;
+					sload 5;
+					invokestatic 14;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					sload 5;
+					invokevirtual 15;		// sendBytes(SS)V
+					goto L11;
+				L10:	sspush 27264;
+					invokestatic 6;		// javacard/framework/ISOException.throwIt(S)V
+				L11:	return;
+		}
+
+		.method public contains([B[B)S 8 {
+			.stack 3;
+			.locals 2;
+
+				L0:	aload_1;
+					ifnull L3;
+				L1:	aload_2;
+					ifnull L3;
+				L2:	aload_1;
+					arraylength;
+					aload_2;
+					arraylength;
+					if_scmpge L4;
+				L3:	sconst_m1;
+					sreturn;
+				L4:	sconst_0;
+					sstore 4;
+					goto L12;
+				L5:	sconst_0;
+					sstore_3;
+					goto L7;
+				L6:	sload_3;
+					sconst_1;
+					sadd;
+					s2b;
+					sstore_3;
+				L7:	sload_3;
+					aload_2;
+					arraylength;
+					if_scmpge L9;
+				L8:	aload_1;
+					sload 4;
+					sload_3;
+					sadd;
+					baload;
+					aload_2;
+					sload_3;
+					baload;
+					if_scmpeq L6;
+				L9:	sload_3;
+					aload_2;
+					arraylength;
+					if_scmpne L11;
+				L10:	sload 4;
+					sreturn;
+				L11:	sinc 4 1;
+				L12:	sload 4;
+					aload_1;
+					arraylength;
+					aload_2;
+					arraylength;
+					ssub;
+					sconst_1;
+					sadd;
+					if_scmplt L5;
+				L13:	sconst_m1;
+					sreturn;
+		}
+
+		.method public select()Z 6 {
+			.stack 1;
+			.locals 0;
+
+				L0:	sconst_1;
+					sreturn;
+		}
+
+		.method public deselect()V 4 {
+			.stack 0;
+			.locals 0;
+
+				L0:	return;
+		}
+
+	}
+
+}
