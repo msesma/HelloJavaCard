@@ -70,6 +70,7 @@ public class HelloJc extends Applet {
             // construct a response APDU which contains data field
             short le = apdu.setOutgoing();
             // Unfortunately setOutgoing always returns 256 for Le so lets retrieve it in other way
+            // This works fine on unit test but is not detected on yubikey. More testing necessary
             le = buffer[(short) (ISO7816.OFFSET_LC + buffer[ISO7816.OFFSET_LC] + 1)];
             if (le != 0 && le < length) {
                 ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
