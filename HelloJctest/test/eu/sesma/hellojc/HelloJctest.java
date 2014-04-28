@@ -97,16 +97,6 @@ public class HelloJctest {
     }
 
     @Test
-    public void testProcessHelloApduGoodDataWrongLeShouldReturnSW_WRONG_LENGTH() {
-        simulator.selectApplet(appletAID);
-        byte[] data = {
-                'H', 'e', 'l', 'l', 'o',
-        };
-        ResponseAPDU response = simulator.transmitCommand(new CommandAPDU(0x00, 0xbb, 0x00, 0x00, data, 0x06));
-        Assert.assertEquals(ISO7816.SW_WRONG_LENGTH, (short) response.getSW());
-    }
-
-    @Test
     public void testProcessHelloApduGoodDataShouldReturnGoodbyeAndOK() {
         simulator.selectApplet(appletAID);
         byte[] data = {
@@ -121,64 +111,4 @@ public class HelloJctest {
         Assert.assertEquals(ISO7816.SW_NO_ERROR, (short) response.getSW());
     }
 
-    @Test
-    public void testContainsNullDataShouldReturnMinusOne() {
-        byte[] nullArray = null;
-        Assert.assertEquals(-1, applet.contains(nullArray, new byte[] {
-                0, 0
-        }));
-    }
-
-    @Test
-    public void testContainsNullPatternShouldReturnMinusOne() {
-        byte[] nullArray = null;
-        Assert.assertEquals(-1, applet.contains(new byte[] {
-                0, 0
-        }, nullArray));
-    }
-
-    @Test
-    public void testContainsShortDataPatternShouldReturnMinusOne() {
-        Assert.assertEquals(-1, applet.contains(new byte[] {
-                0, 0
-        }, new byte[] {
-                0, 0, 0
-        }));
-    }
-
-    @Test
-    public void testContainsNoPatternInDataShouldReturnMinusOne() {
-        Assert.assertEquals(-1, applet.contains(new byte[] {
-                0, 1, 2, 3, 4, 5
-        }, new byte[] {
-                1, 2, 4
-        }));
-    }
-
-    @Test
-    public void testContainsShouldReturnTwo() {
-        Assert.assertEquals(2, applet.contains(new byte[] {
-                0, 1, 2, 3, 4, 5
-        }, new byte[] {
-                2, 3, 4
-        }));
-    }
-
-    public int contains(final byte[] data, final byte[] pattern) {
-        if (data == null || pattern == null || data.length < pattern.length) {
-            return -1;
-        }
-
-        int j;
-        for (int i = 0; i < data.length - pattern.length + 1; i++) {
-            j = 0;
-            while (j < pattern.length && data[i + j] == pattern[j]) {
-                j++;
-            }
-            if (j == pattern.length) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }
